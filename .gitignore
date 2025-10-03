@@ -25,9 +25,9 @@ dist-ssr
 
 
 # compiled output
-/dist
+backend/dist
 /node_modules
-/build
+frontend/build
 
 # Tests
 /coverage
