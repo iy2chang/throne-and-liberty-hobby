@@ -12,7 +12,7 @@ import { join } from 'path';
     MongooseModule.forRoot('mongodb://localhost:27017/throne-and-liberty'),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '..', 'frontend', 'dist'),
-      exclude: ['/api*'],
+      exclude: ['/api'],
     }),
     UsersModule,
     AuthModule,
