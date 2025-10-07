@@ -13,8 +13,7 @@ export default function Register() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    console.log("username", username);
-    console.log("password", password);
+
     try {
       await register(username, password);
       navigate("/login");

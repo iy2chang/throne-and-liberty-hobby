@@ -18,10 +18,7 @@ export class UsersService {
       if (userExist) {
         throw new ConflictException(`User ${username} already exists`);
       }
-      console.log('userExist', userExist);
-      console.log('password', password, username);
       const salt = await bcrypt.genSalt();
-      console.log('salt', salt);
       const passwordHash = await bcrypt.hash(password, salt);
       const user = await this.userModel.create({
         username,
@@ -55,8 +52,6 @@ export class UsersService {
   ): Promise<{ users: UserDocument[]; total: number }> {
     try {
       const skip = (page - 1) * limit;
-      console.log('search', search);
-      console.log('page', page);
       const filter = search
         ? { username: { $regex: search, $options: 'i' } }
         : {};
