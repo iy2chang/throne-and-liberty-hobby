@@ -59,7 +59,6 @@ export class UsersService {
         ? { username: { $regex: search, $options: 'i' } }
         : {};
 
-      console.log('filter', filter);
       const total = await this.userModel.countDocuments(filter);
       const users = await this.userModel
         .find(filter)
@@ -76,7 +75,10 @@ export class UsersService {
 
   async getUserById(id: string): Promise<UserDocument> {
     try {
-      const user = await this.userModel.findById(id).exec();
+      const user = await this.userModel
+        .findById(id)
+        .select('-passwordHash')
+        .exec();
 
       if (!user) {
         throw new NotFoundException(`User:${id} not found`);
