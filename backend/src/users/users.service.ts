@@ -18,8 +18,10 @@ export class UsersService {
       if (userExist) {
         throw new ConflictException(`User ${username} already exists`);
       }
-
+      console.log('userExist', userExist);
+      console.log('password', password, username);
       const salt = await bcrypt.genSalt();
+      console.log('salt', salt);
       const passwordHash = await bcrypt.hash(password, salt);
       const user = await this.userModel.create({
         username,

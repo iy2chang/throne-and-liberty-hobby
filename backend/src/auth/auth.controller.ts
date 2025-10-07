@@ -16,6 +16,7 @@ export class AuthController {
     @Body('username') username: string,
     @Body('password') password: string,
   ) {
+    console.log('username', username);
     const user = await this.usersService.register(username, password);
     return await this.authService.login(user);
   }
