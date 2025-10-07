@@ -16,6 +16,37 @@ export class User {
 
   @Prop({ default: true })
   isActive: boolean;
+
+  @Prop({
+    type: [String],
+    enum: [
+      'Battleweaver',
+      'Berserker',
+      'Cavalier',
+      'Crusader',
+      'Darkblighter',
+      'Disciple',
+      'Infiltrator',
+      'Invocator',
+      'Liberator',
+      'Paladin',
+      'Ranger',
+      'Ravager',
+      'Scropian',
+      'Seeker',
+      'Sentinel',
+      'SpellBlade',
+      'Templar',
+      'Warden',
+      'Outrider',
+      'Gladiator',
+      'Scout',
+      'Enigma',
+      'Raider',
+    ],
+    default: [],
+  })
+  class: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

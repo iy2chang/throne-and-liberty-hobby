@@ -1,34 +1,30 @@
 import { useState } from "react";
-import { login } from "../services/authService";
-import { jwtDecode } from "jwt-decode";
+import { register } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-
+    console.log("username", username);
+    console.log("password", password);
     try {
-      const data = await login(username, password);
-      console.log("Login success", data);
-      localStorage.setItem("accessToken", data.access_token);
-
-      // decode for user info
-      const decoded: any = jwtDecode(data.access_token);
-      console.log("decoded", decoded);
-      navigate("/profile");
-    } catch (e) {
+      await register(username, password);
+      navigate("/login");
+    } catch (e: any) {
+      setError(e.response?.err?.message || "Registration Faile");
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
@@ -55,11 +51,10 @@ export default function Login() {
           required
         />
       </div>
-
       {error && <p className="text-red-500 mb-2">{error}</p>}
 
       <button type="submit" className="btn btn-primary" disabled={loading}>
-        {loading ? "Loging in..." : "Login"}
+        {loading ? "Register..." : "Register"}
       </button>
     </form>
   );
